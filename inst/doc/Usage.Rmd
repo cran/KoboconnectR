@@ -1,0 +1,114 @@
+---
+title: "Usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(KoboconnectR)
+```
+
+
+## Check if you have API token from Kobotoolbox
+
+
+
+```{r eval=FALSE, include=TRUE}
+library(KoboconnectR)
+get_kobo_token(url="kobo.humanitarianresponse.info", uname="userid", pwd="password")
+```
+
+
+The output is usually like this
+
+`
+No encoding supplied: defaulting to UTF-8.
+$token
+[1] "nask976bdshuiqw9829nsh718"
+`
+
+## Extracting data
+
+Extracting data is two step process. Step one is to identify the asset id. And next is to use the asset id to extract the data.
+
+### Check the assets you have access to
+
+
+```{r echo=TRUE, eval=FALSE, include=TRUE}
+kobotools_api(url="kobo.humanitarianresponse.info", simplified=T, uname="userid", pwd="password")
+```
+
+The output will be a simplified data frame if `simplified =T` is used in the `kobotools_api` function.
+
+
+From the data frame, you can find the asset id you need ((under the column `asset`)). 
+
+
+### Extract the data
+
+
+Use the asset id and plug in to the `kobotools_kpi_data` function to download the data.
+
+
+```{r eval=FALSE, include=TRUE}
+kobotools_kpi_data(assetid= "assetid", url="kobo.humanitarianresponse.info", uname="username", pwd="password")
+```
+
+
+
+This returns a list from json file. Main data is usually inside `results`.
+
+Following shows the summary of the list downloaded from one `kobotools_kpi_data` query.
+
+`Downloading: 8.4 kB              Length Class  Mode   
+count     1     -none- numeric
+next      0     -none- NULL   
+previous  0     -none- NULL   
+results  39     -none- list   `
+
+
+## Exports (To download xls and csv)
+
+'Kobotoolbox' provides ability to create export of survey results. These exports can be of different formats including 'csv' and 'xls'. The manual process is mentioned the [documentation](https://support.kobotoolbox.org/export_download.html).
+
+
+### Viewing the list of existing exports
+
+
+Using 'kobo_exports()' function, you can view the list of existing exports. This includes URL to the 'xls' or 'csv' file that you can use to download, import or read files in R.
+
+
+```{r eval=FALSE, include=TRUE}
+kobo_exports(url="kobo.humanitarianresponse.info", uname="", pwd="")
+```
+
+
+### Creating export
+
+
+Exported data is not updated automatically when new data is entered in the survey. So, you may need to create new export to accommodate new data. To create export, use 'kobo_export_create()' function.
+Please note that 'Kobotoolbox' has a limited memory and you may have to delete existing exports manually to clean up.
+
+
+```{r eval=FALSE, include=TRUE}
+kobo_export_create(url="kobo.humanitarianresponse.info", uname="", pwd="",
+                               assetid="", type= "csv", all="false", lang="_default",
+                               hierarchy="false", include_grp="true",grp_sep="/")
+```
+
+On successful execution, the URL of the created export will be returned and printed. You can use this URL to download, import or read data in R.
+
+## Issues and Suggestions
+
+Please feel free to add issue of suggestions in [github](https://github.com/asitav-sen/KoboconnectR/issues)
+
