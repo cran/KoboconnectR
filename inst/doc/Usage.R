@@ -25,3 +25,7 @@ library(KoboconnectR)
 #                                 assetid="", type= "csv", all="false", lang="_default",
 #                                 hierarchy="false", include_grp="true",grp_sep="/")
 
+## ----eval=FALSE, include=TRUE-------------------------------------------------
+#  kobo_df_download(uname = "username",pwd="password", assetid = "asset",
+#                                            lang = "English (en)")
+

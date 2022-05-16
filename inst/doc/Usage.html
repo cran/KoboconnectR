@@ -184,6 +184,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">assetid=</span><span class="st">&quot;&quot;</span>, <span class="at">type=</span> <span class="st">&quot;csv&quot;</span>, <span class="at">all=</span><span class="st">&quot;false&quot;</span>, <span class="at">lang=</span><span class="st">&quot;_default&quot;</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">hierarchy=</span><span class="st">&quot;false&quot;</span>, <span class="at">include_grp=</span><span class="st">&quot;true&quot;</span>,<span class="at">grp_sep=</span><span class="st">&quot;/&quot;</span>)</span></code></pre></div>
 <p>On successful execution, the URL of the created export will be returned and printed. You can use this URL to download, import or read data in R.</p>
+<p>Find dummy example of <a href="https://blog.asitavsen.com/post/how-to-download-kobotoolbox-data-in-r/">how to create export and download csv from Kobotoolbox to R here</a></p>
+</div>
+<div id="downloading-csv-file-directly" class="section level3">
+<h3>Downloading csv file directly</h3>
+<p>This is a new function which</p>
+<ol style="list-style-type: decimal">
+<li>Creates an export as csv</li>
+<li>Downloads the export (And returns)</li>
+<li>Deletes the exports after download</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kobo_df_download</span>(<span class="at">uname =</span> <span class="st">&quot;username&quot;</span>,<span class="at">pwd=</span><span class="st">&quot;password&quot;</span>, <span class="at">assetid =</span> <span class="st">&quot;asset&quot;</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">lang =</span> <span class="st">&quot;English (en)&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="issues-and-suggestions" class="section level2">
