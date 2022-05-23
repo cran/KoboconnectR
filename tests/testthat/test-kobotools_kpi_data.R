@@ -31,12 +31,11 @@ test_that("password non string conditions works", {
   expect_error(kobotools_kpi_data(assetid=1234))
 })
 
-test_that("error if not 200", {
-  expect_error(kobotools_kpi_data(assetid="akANpTUN6aB4wXADscfRSy", url="humanitarianresponse.info", uname="scary_scarecrow", pwd="sybWE6USkFxDsr4"))
-})
 
-skip_on_cran()
+
+
 test_that("a list of length 4 is downloaded", {
+  skip_on_cran()
   expect_length(kobotools_kpi_data(assetid="akANpTUN6aB4wXADscfRSy", url="kobo.humanitarianresponse.info", uname="scary_scarecrow", pwd="sybWE6USkFxDsr4"),4)
 })
 
