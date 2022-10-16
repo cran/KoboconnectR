@@ -42,8 +42,8 @@ export_creator <- function(url="kobo.humanitarianresponse.info", uname="", pwd="
   if(is.null(hierarchy)) stop("hierarchy empty")
   #if(is.null(grp_sep)) stop("grp_sep empty")
   if(is.null(include_grp)) stop("include_grp empty")
-  if(include_grp=="true" & is.null(grp_sep)) stop("grp_sep cannot be empty if include_grp is true")
-  if(include_grp=="false" & !is.null(grp_sep)) stop("grp_sep should be empty if include_grp is false")
+  if(include_grp=="true" & is.null(grp_sep)) stop("grp_sep cannot be empty")
+  #if(include_grp=="false" & !is.null(grp_sep)) stop("grp_sep should be empty if include_grp is false")
 
   pre_export<- kobo_exports(url=url, uname=uname, pwd=pwd)
   pre_count<-ifelse(is.null(pre_export$count),0,pre_export$count)
@@ -69,7 +69,7 @@ export_creator <- function(url="kobo.humanitarianresponse.info", uname="", pwd="
              submission_ids=sub_ids,
              query=qry
            ),
-           timeout(5))
+           timeout(sleep*2))
     },
     error=function(x){
       print("There was some error")
@@ -88,7 +88,7 @@ export_creator <- function(url="kobo.humanitarianresponse.info", uname="", pwd="
 
   if(post_time<=pre_time){
     cat("Execution in Progress...")
-    Sys.sleep(10)
+    Sys.sleep(sleep*2)
   }
 
   if(post_time<=pre_time){
@@ -104,7 +104,7 @@ export_creator <- function(url="kobo.humanitarianresponse.info", uname="", pwd="
 
       if(is.na(post_export$results$result[post_count])){
         print("waiting..")
-        Sys.sleep(10)
+        Sys.sleep(sleep*5)
       }
       if(is.na(post_export$results$result[post_count])){
         print("Could not get export list")
@@ -121,13 +121,22 @@ export_creator <- function(url="kobo.humanitarianresponse.info", uname="", pwd="
 
 }
 
-export_downloader<-function(exp.url, fsep, uname, pwd, sleep){
+export_downloader<-function(exp.url, fsep, uname, pwd, sleep, type="csv"){
   tmp_file <- tempfile()
+  print("Password")
+  print(pwd)
   df<-httr::GET(exp.url, httr::authenticate(user=uname, password = pwd),progress())
   Sys.sleep(sleep)
   dff<-httr::content(df, type="raw",encoding = "UTF-8")
   Sys.sleep(sleep)
   writeBin(dff, tmp_file)
-  dff<-read.csv(tmp_file, sep=fsep)
+  if(type=="csv"){
+    dff<-read.csv(tmp_file, sep=fsep)
+  }
+
+  if(type=="xls"){
+    dff<-readxl::read_excel(tmp_file)
+  }
+
   return(dff)
 }

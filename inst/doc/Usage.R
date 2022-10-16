@@ -29,3 +29,10 @@ library(KoboconnectR)
 #  kobo_df_download(uname = "username",pwd="password", assetid = "asset",
 #                                            lang = "English (en)")
 
+## ----eval=FALSE, include=TRUE-------------------------------------------------
+#  kobo_xls_dl(uname = "username",pwd="password", assetid = "asset",
+#                                            lang = "English (en)")
+
+## ----eval=FALSE, include=TRUE-------------------------------------------------
+#  kobo_media_downloader(uname = "uid",pwd="password", assetid = "assetid")
+
