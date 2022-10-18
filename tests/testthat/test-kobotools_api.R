@@ -28,6 +28,7 @@ test_that("df is downloaded when simplification applied", {
 })
 
 test_that("list is downloaded when simplification not applied", {
+  skip_on_cran()
   expect_true(is.list(kobotools_api(url="kobo.humanitarianresponse.info", simplified=T, uname="scary_scarecrow", pwd="sybWE6USkFxDsr4")))
 })
 

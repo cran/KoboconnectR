@@ -76,66 +76,93 @@ export_creator <- function(url="kobo.humanitarianresponse.info", uname="", pwd="
       return(NULL)
     }
   )
-  #stop_for_status(task, "create export")
-  if(task$status_code==201) cat("Export instruction sent successfully. Waiting for result. \n")
-  Sys.sleep(sleep)
+  if(!is.null(task)){
+    if(task$status_code==201) cat("Export instruction sent successfully. Waiting for result. \n")
+    Sys.sleep(sleep)
 
-  post_export<-kobo_exports(url=url, uname=uname, pwd=pwd)
-  Sys.sleep(sleep*2)
-  post_count<-post_export$count
-  post_time<-max(post_export$results$date_created)
-
-
-  if(post_time<=pre_time){
-    cat("Execution in Progress...")
-    Sys.sleep(sleep*2)
-  }
-
-  if(post_time<=pre_time){
-    cat("Timeout")
-    return(NULL)
-  } else {
-    if(post_export$results$status[post_count]=="error"){
-      print(paste0("Did not execute. Encountered ",post_export$results$messages$error_type[post_count],". ",
-                  post_export$results$messages$error[post_count],". \n"))
-      return(NULL)
-    } else {
-      print("Export successful")
-
-      if(is.na(post_export$results$result[post_count])){
-        print("waiting..")
-        Sys.sleep(sleep*5)
+    post_export<- tryCatch(
+      expr = {
+        kobo_exports(url=url, uname=uname, pwd=pwd)
+      }, error=function(x){
+        print("List of exports could not be retrieved.")
+        return(NULL)
       }
-      if(is.na(post_export$results$result[post_count])){
-        print("Could not get export list")
+    )
+
+    if(!is.null(post_export)){
+      Sys.sleep(sleep*2)
+      post_count<-post_export$count
+      post_time<-max(post_export$results$date_created)
+
+
+      if(post_time<=pre_time){
+        cat("Execution in Progress...")
+        Sys.sleep(sleep*2)
+      }
+
+      if(post_time<=pre_time){
+        cat("Timeout")
         return(NULL)
       } else {
-        print(post_export$results$result[post_count])
-        new_url=post_export$results$result[post_count]
-        uid=post_export$results$uid[post_count]
-        created_list<-list(new_url,uid)
-        return(created_list)
+        if(post_export$results$status[post_count]=="error"){
+          print(paste0("Did not execute. Encountered ",post_export$results$messages$error_type[post_count],". ",
+                       post_export$results$messages$error[post_count],". \n"))
+          return(NULL)
+        } else {
+          print("Export successful")
+
+          if(is.na(post_export$results$result[post_count])){
+            print("waiting..")
+            Sys.sleep(sleep*5)
+          }
+          if(is.na(post_export$results$result[post_count])){
+            print("Could not get export list")
+            return(NULL)
+          } else {
+            print(post_export$results$result[post_count])
+            new_url=post_export$results$result[post_count]
+            uid=post_export$results$uid[post_count]
+            created_list<-list(new_url,uid)
+            return(created_list)
+          }
+        }
       }
+    } else {
+      print("There was some error. List of exports could not be retrieved.")
+      return(NULL)
     }
+
+  } else {
+    print("There was some error. Export instruction was not sent succesfully.")
+    return(NULL)
   }
+
 
 }
 
+
 export_downloader<-function(exp.url, fsep, uname, pwd, sleep, type="csv"){
-  tmp_file <- tempfile()
-  print("Password")
-  print(pwd)
-  df<-httr::GET(exp.url, httr::authenticate(user=uname, password = pwd),progress())
-  Sys.sleep(sleep)
-  dff<-httr::content(df, type="raw",encoding = "UTF-8")
-  Sys.sleep(sleep)
-  writeBin(dff, tmp_file)
+
   if(type=="csv"){
+    tmp_file <- tempfile()
+    df<-httr::GET(exp.url, httr::authenticate(user=uname, password = pwd),progress())
+    Sys.sleep(sleep)
+    dff<-httr::content(df, type="raw",encoding = "UTF-8")
+    Sys.sleep(sleep)
+    writeBin(dff, tmp_file)
     dff<-read.csv(tmp_file, sep=fsep)
   }
 
   if(type=="xls"){
-    dff<-readxl::read_excel(tmp_file)
+    httr::GET(exp.url, httr::authenticate(user=uname, password = pwd),
+              httr::write_disk("kobodl.xlsx", overwrite = TRUE), progress())
+    path<-"kobodl.xlsx"
+    dff<-purrr::map(rlang::set_names(readxl::excel_sheets(path)),readxl::read_excel, path=path)
+
+      # path |>
+      # readxl::excel_sheets() |>
+      # rlang::set_names() |>
+      # purrr::map(readxl::read_excel, path=path)
   }
 
   return(dff)

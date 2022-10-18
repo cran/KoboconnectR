@@ -25,5 +25,6 @@ test_that("password non string conditions works", {
 
 
 test_that("correct token is returned", {
+  skip_on_cran()
   expect_equal(unlist(get_kobo_token(url="kobo.humanitarianresponse.info", uname="scary_scarecrow", pwd="sybWE6USkFxDsr4")), c(token="d7a1faf575e047d4ebb1519469454297dcd012ed"))
 })
