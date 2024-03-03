@@ -1,6 +1,6 @@
 test_that("XL Downloaded", {
   skip_on_cran()
-  dtt<-kobo_xls_dl(
+  dtt <- kobo_xls_dl(
     uname = "scary_scarecrow",
     pwd = "sybWE6USkFxDsr4",
     assetid = "ahwQoXtnbQJBXCGU24aTao"

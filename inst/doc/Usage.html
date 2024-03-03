@@ -340,12 +340,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(KoboconnectR)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Extract Kobotools data to R</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(KoboconnectR)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; Extract Kobotools data to R</span></span></code></pre></div>
 <div id="check-if-you-have-api-token-from-kobotoolbox" class="section level2">
 <h2>Check if you have API token from Kobotoolbox</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(KoboconnectR)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_kobo_token</span>(<span class="at">url=</span><span class="st">&quot;kobo.humanitarianresponse.info&quot;</span>, <span class="at">uname=</span><span class="st">&quot;userid&quot;</span>, <span class="at">pwd=</span><span class="st">&quot;password&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(KoboconnectR)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">get_kobo_token</span>(<span class="at">url =</span> <span class="st">&quot;eu.kobotoolbox.org&quot;</span>, <span class="at">uname =</span> <span class="st">&quot;userid&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;password&quot;</span>)</span></code></pre></div>
 <p>The output is usually like this</p>
 <p><code>No encoding supplied: defaulting to UTF-8. $token [1] &quot;nask976bdshuiqw9829nsh718&quot;</code></p>
 </div>
@@ -355,7 +355,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 asset id. And next is to use the asset id to extract the data.</p>
 <div id="check-the-assets-you-have-access-to" class="section level3">
 <h3>Check the assets you have access to</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kobotools_api</span>(<span class="at">url=</span><span class="st">&quot;kobo.humanitarianresponse.info&quot;</span>, <span class="at">simplified=</span>T, <span class="at">uname=</span><span class="st">&quot;userid&quot;</span>, <span class="at">pwd=</span><span class="st">&quot;password&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">kobotools_api</span>(<span class="at">url =</span> <span class="st">&quot;eu.kobotoolbox.org&quot;</span>, <span class="at">simplified =</span> T, <span class="at">uname =</span> <span class="st">&quot;userid&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;password&quot;</span>)</span></code></pre></div>
 <p>The output will be a simplified data frame if
 <code>simplified =T</code> is used in the <code>kobotools_api</code>
 function.</p>
@@ -366,7 +366,7 @@ column <code>asset</code>)).</p>
 <h3>Extract the data</h3>
 <p>Use the asset id and plug in to the <code>kobotools_kpi_data</code>
 function to download the data.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kobotools_kpi_data</span>(<span class="at">assetid=</span> <span class="st">&quot;assetid&quot;</span>, <span class="at">url=</span><span class="st">&quot;kobo.humanitarianresponse.info&quot;</span>, <span class="at">uname=</span><span class="st">&quot;username&quot;</span>, <span class="at">pwd=</span><span class="st">&quot;password&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">kobotools_kpi_data</span>(<span class="at">assetid =</span> <span class="st">&quot;assetid&quot;</span>, <span class="at">url =</span> <span class="st">&quot;eu.kobotoolbox.org&quot;</span>, <span class="at">uname =</span> <span class="st">&quot;username&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;password&quot;</span>)</span></code></pre></div>
 <p>This returns a list from json file. Main data is usually inside
 <code>results</code>.</p>
 <p>Following shows the summary of the list downloaded from one
@@ -384,7 +384,7 @@ manual process is mentioned the <a href="https://support.kobotoolbox.org/export_
 <p>Using ‘kobo_exports()’ function, you can view the list of existing
 exports. This includes URL to the ‘xls’ or ‘csv’ file that you can use
 to download, import or read files in R.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kobo_exports</span>(<span class="at">url=</span><span class="st">&quot;kobo.humanitarianresponse.info&quot;</span>, <span class="at">uname=</span><span class="st">&quot;&quot;</span>, <span class="at">pwd=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">kobo_exports</span>(<span class="at">url =</span> <span class="st">&quot;eu.kobotoolbox.org&quot;</span>, <span class="at">uname =</span> <span class="st">&quot;&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 </div>
 <div id="creating-export" class="section level3">
 <h3>Creating export</h3>
@@ -393,9 +393,11 @@ in the survey. So, you may need to create new export to accommodate new
 data. To create export, use ‘kobo_export_create()’ function. Please note
 that ‘Kobotoolbox’ has a limited memory and you may have to delete
 existing exports manually to clean up.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kobo_export_create</span>(<span class="at">url=</span><span class="st">&quot;kobo.humanitarianresponse.info&quot;</span>, <span class="at">uname=</span><span class="st">&quot;&quot;</span>, <span class="at">pwd=</span><span class="st">&quot;&quot;</span>,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">assetid=</span><span class="st">&quot;&quot;</span>, <span class="at">type=</span> <span class="st">&quot;csv&quot;</span>, <span class="at">all=</span><span class="st">&quot;false&quot;</span>, <span class="at">lang=</span><span class="st">&quot;_default&quot;</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">hierarchy=</span><span class="st">&quot;false&quot;</span>, <span class="at">include_grp=</span><span class="st">&quot;true&quot;</span>,<span class="at">grp_sep=</span><span class="st">&quot;/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">kobo_export_create</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;eu.kobotoolbox.org&quot;</span>, <span class="at">uname =</span> <span class="st">&quot;&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">assetid =</span> <span class="st">&quot;&quot;</span>, <span class="at">type =</span> <span class="st">&quot;csv&quot;</span>, <span class="at">all =</span> <span class="st">&quot;false&quot;</span>, <span class="at">lang =</span> <span class="st">&quot;_default&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">hierarchy =</span> <span class="st">&quot;false&quot;</span>, <span class="at">include_grp =</span> <span class="st">&quot;true&quot;</span>, <span class="at">grp_sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>)</span></code></pre></div>
 <p>On successful execution, the URL of the created export will be
 returned and printed. You can use this URL to download, import or read
 data in R.</p>
@@ -410,15 +412,19 @@ to create export and download csv from Kobotoolbox to R here</a></p>
 <li>Downloads the export (And returns)</li>
 <li>Deletes the exports after download</li>
 </ol>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kobo_df_download</span>(<span class="at">uname =</span> <span class="st">&quot;username&quot;</span>,<span class="at">pwd=</span><span class="st">&quot;password&quot;</span>, <span class="at">assetid =</span> <span class="st">&quot;asset&quot;</span>,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">lang =</span> <span class="st">&quot;English (en)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">kobo_df_download</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">uname =</span> <span class="st">&quot;username&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;password&quot;</span>, <span class="at">assetid =</span> <span class="st">&quot;asset&quot;</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">lang =</span> <span class="st">&quot;English (en)&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="downloading-xls-file-directly" class="section level3">
 <h3>Downloading xls file directly</h3>
 <p>Works on the same principle as that in <code>kobo_df_download</code>,
 except the exported file is in <code>excel</code> format.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kobo_xls_dl</span>(<span class="at">uname =</span> <span class="st">&quot;username&quot;</span>,<span class="at">pwd=</span><span class="st">&quot;password&quot;</span>, <span class="at">assetid =</span> <span class="st">&quot;asset&quot;</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">lang =</span> <span class="st">&quot;English (en)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">kobo_xls_dl</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">uname =</span> <span class="st">&quot;username&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;password&quot;</span>, <span class="at">assetid =</span> <span class="st">&quot;asset&quot;</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">lang =</span> <span class="st">&quot;English (en)&quot;</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="downloading-media-files" class="section level3">
 <h3>Downloading Media Files</h3>
@@ -426,7 +432,7 @@ except the exported file is in <code>excel</code> format.</p>
 then finds the columns with media links and then downloads the files in
 a loop. This process is time consuming and you may face errors due to
 timeouts and server load issues.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kobo_media_downloader</span>(<span class="at">uname =</span> <span class="st">&quot;uid&quot;</span>,<span class="at">pwd=</span><span class="st">&quot;password&quot;</span>, <span class="at">assetid =</span> <span class="st">&quot;assetid&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">kobo_media_downloader</span>(<span class="at">uname =</span> <span class="st">&quot;uid&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;password&quot;</span>, <span class="at">assetid =</span> <span class="st">&quot;assetid&quot;</span>)</span></code></pre></div>
 <p>In case do not want to use this function, use the data downloaded
 using <code>kobo_df_download</code> and find the columns where media
 links exist. Then loop over the values in the column (download using the

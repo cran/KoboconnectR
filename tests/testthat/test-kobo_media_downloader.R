@@ -6,10 +6,8 @@
 # })
 
 test_that("invalid input fails", {
-
-  expect_error( is.null(kobo_media_downloader(uname = "scary_",
-                                         pwd="sy", assetid = "ahwQoXtnbQJB"
-                                         )))
+  expect_error(is.null(kobo_media_downloader(
+    uname = "scary_",
+    pwd = "sy", assetid = "ahwQoXtnbQJB"
+  )))
 })
-
-
