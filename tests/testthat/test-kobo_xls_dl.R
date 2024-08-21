@@ -1,9 +1,9 @@
 test_that("XL Downloaded", {
   skip_on_cran()
   dtt <- kobo_xls_dl(
-    uname = "scary_scarecrow",
-    pwd = "sybWE6USkFxDsr4",
-    assetid = "ahwQoXtnbQJBXCGU24aTao"
+    uname = "scaryscarecrow",
+    pwd = "bqYNEj6ZRCPi4C6",
+    assetid = "aufBcR7TaVeTd8vbzGLkfN"
   )
   expect_true(is.data.frame(dtt) | is.list(dtt) | is.null(dtt))
 })

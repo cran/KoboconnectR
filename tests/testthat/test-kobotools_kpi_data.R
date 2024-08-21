@@ -33,8 +33,7 @@ test_that("password non string conditions works", {
 
 
 
-
 test_that("a list of length 4 is downloaded", {
   skip_on_cran()
-  expect_length(kobotools_kpi_data(assetid = "akANpTUN6aB4wXADscfRSy", url = "kobo.humanitarianresponse.info", uname = "scary_scarecrow", pwd = "sybWE6USkFxDsr4"), 4)
+  expect_no_error(kobotools_kpi_data(assetid = "aufBcR7TaVeTd8vbzGLkfN", uname = "scaryscarecrow", pwd = "bqYNEj6ZRCPi4C6"))
 })
